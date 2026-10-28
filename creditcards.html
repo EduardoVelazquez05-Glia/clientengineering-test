@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Glia Integration Script -->
+    <script async src="https://api.beta.glia.com/salemove_integration.js"></script>
+    <title>Credit Cards | Eduardo's Bank</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0f172a;
+        --primary-accent: #1e40af;
+        --accent-hover: #1d4ed8;
+        --surface-light: #f8fafc;
+        --border-color: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+
+      /* Top Announcement Bar */
+      .top-bar {
+        background: var(--primary);
+        color: #94a3b8;
+        font-size: 13px;
+        text-align: center;
+        padding: 8px 16px;
+      }
+
+      .top-bar strong {
+        color: #ffffff;
+      }
+
+      /* Header & Nav */
+      header {
+        position: sticky;
+        top: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand img {
+        height: 38px;
+        width: auto;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      nav {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        color: var(--primary-accent);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: #ffffff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-outline {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--surface-light);
+      }
+
+      /* Page Header */
+      .page-header {
+        background-color: var(--surface-light);
+        padding: 80px 24px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .page-header h1 {
+        font-size: 42px;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .page-header p {
+        font-size: 18px;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Card Grid Section */
+      .cards-section {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 0 24px;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+
+      .credit-card-product {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .credit-card-product:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Visual Placeholder for Card Art */
+      .card-art-container {
+        background: #eff6ff;
+        padding: 32px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .card-art-container img {
+        width: 100%;
+        max-width: 240px;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-details {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .card-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .card-tagline {
+        font-size: 14px;
+        color: var(--primary-accent);
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .reward-rate {
+        font-size: 15px;
+        color: var(--text-dark);
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+
+      .reward-rate strong {
+        font-size: 24px;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .card-specs {
+        list-style: none;
+        margin-bottom: 32px;
+        flex-grow: 1;
+      }
+
+      .card-specs li {
+        font-size: 14px;
+        color: var(--text-muted);
+        padding: 8px 0;
+        border-bottom: 1px solid var(--surface-light);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .card-specs li:last-child {
+        border-bottom: none;
+      }
+
+      .card-specs span.spec-label {
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      .card-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* Feature Matrix */
+      .features-banner {
+        background-color: var(--primary);
+        color: #ffffff;
+        padding: 64px 24px;
+        margin-top: 80px;
+      }
+
+      .features-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        text-align: center;
+      }
+
+      .features-container h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+
+      .features-container p {
+        color: #94a3b8;
+        font-size: 15px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: #94a3b8;
+        padding: 48px 24px 24px;
+        font-size: 13px;
+      }
+
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 32px;
+        margin-bottom: 24px;
+      }
+
+      .footer-brand h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .legal-strip {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      @media (max-width: 860px) {
+        .cards-grid,
+        .features-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+      <span>Limited Time Offer: Earn up to 50,000 bonus points on select cards. <strong>See Offers</strong></span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="brand">
+          <img src="images/eduardos-bank-logo.png" alt="Eduardo's Bank Logo" />
+          <span class="brand-name">Eduardo's Bank</span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav>
+          <a href="index.html">Homepage</a>
+          <a href="payroll.html">Payroll</a>
+          <a href="creditcards.html" class="active">Credit Cards</a>
+          <a href="mortgages.html">Mortgages</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="#" class="btn btn-outline">Sign In</a>
+          <a href="#" class="btn btn-primary">Open Account</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>Find the right card for your lifestyle.</h1>
+      <p>Whether you're looking for everyday cash back, premium travel rewards, or building your credit history, we have a card for you.</p>
+    </div>
+
+    <!-- Cards Grid -->
+    <section class="cards-section">
+      <div class="cards-grid">
+        
+        <!-- Cash Back Card -->
+        <div class="credit-card-product">
+          <div class="card-art-container" style="background-color: #f0fdf4;">
+            <img src="images/card-cashback.png" alt="Eduardo's Bank Cash Back Card" />
+          </div>
+          <div class="card-details">
+            <h2 class="card-title">Cash Rewards</h2>
+            <p class="card-tagline">For everyday spenders</p>
+            
+            <p class="reward-rate">
+              <strong>1.5%</strong>
+              Unlimited cash back on every purchase, every day.
+            </p>
+
+            <ul class="card-specs">
+              <li><span class="spec-label">Annual Fee</span> $0</li>
+              <li><span class="spec-label">Intro APR</span> 0% for 15 months</li>
+              <li><span class="spec-label">Credit Needed</span> Good to Excellent</li>
+            </ul>
+
+            <div class="card-actions">
+              <a href="#" class="btn btn-primary">Apply Now</a>
+              <a href="#" class="btn btn-outline">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Travel Card -->
+        <div class="credit-card-product">
+          <div class="card-art-container" style="background-color: #eff6ff;">
+            <img src="images/card-travel.png" alt="Eduardo's Bank Travel Premium Card" />
+          </div>
+          <div class="card-details">
+            <h2 class="card-title">Travel Premium</h2>
+            <p class="card-tagline">For the frequent flyer</p>
+            
+            <p class="reward-rate">
+              <strong>3x Points</strong>
+              On dining, flights, and hotels worldwide.
+            </p>
+
+            <ul class="card-specs">
+              <li><span class="spec-label">Annual Fee</span> $95</li>
+              <li><span class="spec-label">Foreign Trans. Fees</span> None</li>
+              <li><span class="spec-label">Credit Needed</span> Excellent</li>
+            </ul>
+
+            <div class="card-actions">
+              <a href="#" class="btn btn-primary">Apply Now</a>
+              <a href="#" class="btn btn-outline">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Starter Card -->
+        <div class="credit-card-product">
+          <div class="card-art-container" style="background-color: #f8fafc;">
+            <img src="images/card-starter.png" alt="Eduardo's Bank Starter Card" />
+          </div>
+          <div class="card-details">
+            <h2 class="card-title">Credit Builder</h2>
+            <p class="card-tagline">To establish your history</p>
+            
+            <p class="reward-rate">
+              <strong>1%</strong>
+              Cash back on eligible bill payments.
+            </p>
+
+            <ul class="card-specs">
+              <li><span class="spec-label">Annual Fee</span> $0</li>
+              <li><span class="spec-label">Security Deposit</span> $200 Minimum</li>
+              <li><span class="spec-label">Credit Needed</span> None or Rebuilding</li>
+            </ul>
+
+            <div class="card-actions">
+              <a href="#" class="btn btn-primary">Apply Now</a>
+              <a href="#" class="btn btn-outline">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Universal Features -->
+    <section class="features-banner">
+      <div class="features-container">
+        <div>
+          <h3>Zero Liability Protection</h3>
+          <p>You won't be held responsible for unauthorized transactions if your card is lost or stolen.</p>
+        </div>
+        <div>
+          <h3>Instant Alerts</h3>
+          <p>Set up push notifications in our app to monitor every purchase and payment instantly.</p>
+        </div>
+        <div>
+          <h3>Contactless Technology</h3>
+          <p>Tap to pay securely at millions of merchants worldwide with embedded RFID chips.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>Eduardo's Bank</h4>
+          <p>Committed to transparent and disciplined financial growth.</p>
+        </div>
+        <div>
+          <p><strong>Member FDIC</strong> | Equal Housing Lender</p>
+        </div>
+      </div>
+      <div class="legal-strip">
+        <p>&copy; 2026 Eduardo's Bank, N.A. All rights reserved. Credit cards are subject to credit approval.</p>
+      </div>
+    </footer>
+  </body>
+</html>

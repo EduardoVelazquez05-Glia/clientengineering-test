@@ -1,24 +1,450 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <script async src="https://api.glia.com/salemove_integration.js"></script>
-  <title>CE Testing Site</title>
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <style>
-    h1  {color:#7C19DD;}
-    h1  {font-family:roboto;}
-    img {
-      width:50%;
-    }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Glia Integration Script -->
+    <script async src="https://api.beta.glia.com/salemove_integration.js"></script>
+    <title>Eduardo's Bank | Modern Personal & Business Banking</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
+    <style>
+      :root {
+        --primary: #0f172a;       /* Deep slate navy */
+        --primary-accent: #1e40af;/* Trust blue */
+        --accent-hover: #1d4ed8;
+        --surface-light: #f8fafc;
+        --border-color: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+
+      /* Top Announcement Bar */
+      .top-bar {
+        background: var(--primary);
+        color: #94a3b8;
+        font-size: 13px;
+        text-align: center;
+        padding: 8px 16px;
+      }
+
+      .top-bar strong {
+        color: #ffffff;
+      }
+
+      /* Main Navigation Bar */
+      header {
+        position: sticky;
+        top: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand img {
+        height: 38px;
+        width: auto;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      nav {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        color: var(--primary-accent);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: #ffffff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-outline {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--surface-light);
+      }
+
+      /* Hero Section */
+      .hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 64px 24px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .hero-content h1 {
+        font-size: 46px;
+        line-height: 1.15;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 16px;
+      }
+
+      .hero-visual {
+        text-align: center;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        max-width: 480px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Trust & Proof Bar */
+      .stats-strip {
+        background-color: var(--surface-light);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 32px 24px;
+      }
+
+      .stats-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        text-align: center;
+      }
+
+      .stat-item h3 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary-accent);
+      }
+
+      .stat-item p {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* Services Grid */
+      .services {
+        max-width: 1200px;
+        margin: 72px auto;
+        padding: 0 24px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .section-header p {
+        color: var(--text-muted);
+        font-size: 16px;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .service-card {
+        padding: 28px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        background: #ffffff;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
+      }
+
+      .service-card h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--primary);
+      }
+
+      .service-card p {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .service-card a {
+        text-decoration: none;
+        color: var(--primary-accent);
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: #94a3b8;
+        padding: 48px 24px 24px;
+        font-size: 13px;
+      }
+
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 32px;
+        margin-bottom: 24px;
+      }
+
+      .footer-brand h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .legal-strip {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-ctas {
+          justify-content: center;
+        }
+        .stats-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <center>
-      <img src="images/Full LOGO_black.png" alt="CE logo" style="width:750px">
-    </center>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+      <span>Security Notice: Eduardo's Bank will never ask for your PIN or password over phone or email. <strong>Learn More</strong></span>
+    </div>
 
-    <h1 style="text-align:center;">Welcome to our testing site!</h2>
+    <!-- Navigation Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="brand">
+          <img src="images/eduardos-bank-logo.png" alt="Eduardo's Bank Logo" />
+          <span class="brand-name">Eduardo's Bank</span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav>
+          <a href="index.html" class="active">Homepage</a>
+          <a href="payroll.html">Payroll</a>
+          <a href="creditcards.html">Credit Cards</a>
+          <a href="mortgages.html">Mortgages</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="#" class="btn btn-outline">Sign In</a>
+          <a href="#" class="btn btn-primary">Open Account</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Hero Banner -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Smarter banking for every milestone.</h1>
+        <p>
+          Experience modern institutional banking built for clarity, speed, and 
+          protection. Whether you are funding a business payroll, selecting a 
+          reward card, or closing on your dream home, we are with you.
+        </p>
+        <div class="hero-ctas">
+          <a href="creditcards.html" class="btn btn-primary">Find Your Card</a>
+          <a href="mortgages.html" class="btn btn-outline">View Home Rates</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img
+          src="images/hero-banking.png"
+          alt="Modern banking mobile interface and digital card"
+        />
+      </div>
+    </section>
+
+    <!-- Financial Performance & Trust Stats -->
+    <section class="stats-strip">
+      <div class="stats-container">
+        <div class="stat-item">
+          <h3>$14.2B</h3>
+          <p>Assets Under Management</p>
+        </div>
+        <div class="stat-item">
+          <h3>450,000+</h3>
+          <p>Active Account Holders</p>
+        </div>
+        <div class="stat-item">
+          <h3>99.98%</h3>
+          <p>Digital Platform Uptime</p>
+        </div>
+        <div class="stat-item">
+          <h3>256-Bit</h3>
+          <p>Bank-Grade Data Encryption</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services">
+      <div class="section-header">
+        <h2>Built to power your financial journey</h2>
+        <p>Explore specialized products designed to protect, reward, and advance your wealth.</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Payroll Card -->
+        <div class="service-card">
+          <h3>Enterprise Payroll</h3>
+          <p>Automate tax compliance, direct deposits, and real-time wage access for growing business teams.</p>
+          <a href="payroll.html">Explore Payroll Solutions &rarr;</a>
+        </div>
+
+        <!-- Credit Cards Card -->
+        <div class="service-card">
+          <h3>Curated Credit Cards</h3>
+          <p>Competitive APRs, flexible cash rewards, and global zero-fee fraud protection for every transaction.</p>
+          <a href="creditcards.html">Compare Card Benefits &rarr;</a>
+        </div>
+
+        <!-- Mortgages Card -->
+        <div class="service-card">
+          <h3>Residential Mortgages</h3>
+          <p>Transparent rates, quick pre-approvals, and dedicated loan officers to help guide your home closing.</p>
+          <a href="mortgages.html">Calculate Loan Estimates &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>Eduardo's Bank</h4>
+          <p>Committed to transparent and disciplined financial growth.</p>
+        </div>
+        <div>
+          <p><strong>Member FDIC</strong> | Equal Housing Lender</p>
+        </div>
+      </div>
+      <div class="legal-strip">
+        <p>&copy; 2026 Eduardo's Bank, N.A. All rights reserved. Investments are not deposits and are not FDIC insured.</p>
+      </div>
+    </footer>
   </body>
 </html>

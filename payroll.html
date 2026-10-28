@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Glia Integration Script -->
+    <script async src="https://api.beta.glia.com/salemove_integration.js"></script>
+    <title>Enterprise Payroll Solutions | Eduardo's Bank</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0f172a;
+        --primary-accent: #1e40af;
+        --accent-hover: #1d4ed8;
+        --surface-light: #f8fafc;
+        --border-color: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+
+      /* Top Announcement Bar */
+      .top-bar {
+        background: var(--primary);
+        color: #94a3b8;
+        font-size: 13px;
+        text-align: center;
+        padding: 8px 16px;
+      }
+
+      .top-bar strong {
+        color: #ffffff;
+      }
+
+      /* Header & Nav */
+      header {
+        position: sticky;
+        top: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand img {
+        height: 38px;
+        width: auto;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      nav {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        color: var(--primary-accent);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: #ffffff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-outline {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--surface-light);
+      }
+
+      /* Hero Section */
+      .hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 64px 24px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #eff6ff;
+        color: var(--primary-accent);
+        border: 1px solid #bfdbfe;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .hero-content h1 {
+        font-size: 44px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 16px;
+      }
+
+      .hero-visual {
+        text-align: center;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Feature Matrix */
+      .features-section {
+        background-color: var(--surface-light);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 64px 24px;
+      }
+
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .section-header p {
+        color: var(--text-muted);
+        font-size: 16px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .feature-box {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+      }
+
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background: #eff6ff;
+        color: var(--primary-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 18px;
+      }
+
+      .feature-box h3 {
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .feature-box p {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* Plans / Tier Cards */
+      .plans-section {
+        max-width: 1200px;
+        margin: 72px auto;
+        padding: 0 24px;
+      }
+
+      .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .plan-card {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 36px 28px;
+        background: #ffffff;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .plan-card.featured {
+        border-color: var(--primary-accent);
+        box-shadow: 0 8px 24px rgba(30, 64, 175, 0.12);
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: -12px;
+        right: 24px;
+        background: var(--primary-accent);
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .plan-header h3 {
+        font-size: 20px;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .plan-header p {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      .plan-price {
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 24px;
+      }
+
+      .plan-price span {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .plan-features {
+        list-style: none;
+        margin-bottom: 32px;
+      }
+
+      .plan-features li {
+        font-size: 14px;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .plan-features li::before {
+        content: "✓";
+        color: #16a34a;
+        font-weight: bold;
+      }
+
+      /* Callout banner */
+      .cta-banner {
+        max-width: 1200px;
+        margin: 0 auto 72px;
+        padding: 48px;
+        background: var(--primary);
+        border-radius: 16px;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .cta-banner h2 {
+        font-size: 30px;
+        margin-bottom: 12px;
+      }
+
+      .cta-banner p {
+        color: #94a3b8;
+        margin-bottom: 24px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: #94a3b8;
+        padding: 48px 24px 24px;
+        font-size: 13px;
+      }
+
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 32px;
+        margin-bottom: 24px;
+      }
+
+      .footer-brand h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .legal-strip {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-ctas {
+          justify-content: center;
+        }
+        .feature-grid,
+        .plans-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+      <span>Federal Tax Filing Season: Eduardo's Bank automatically syncs 1099 and W-2 records. <strong>See Details</strong></span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="brand">
+          <img src="images/eduardos-bank-logo.png" alt="Eduardo's Bank Logo" />
+          <span class="brand-name">Eduardo's Bank</span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav>
+          <a href="index.html">Homepage</a>
+          <a href="payroll.html" class="active">Payroll</a>
+          <a href="creditcards.html">Credit Cards</a>
+          <a href="mortgages.html">Mortgages</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="#" class="btn btn-outline">Sign In</a>
+          <a href="#" class="btn btn-primary">Open Account</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Payroll Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Business Treasury & Payroll</span>
+        <h1>Frictionless payroll with automated compliance.</h1>
+        <p>
+          Pay domestic and international teams on time, handle state and federal 
+          tax filings automatically, and keep your business fully compliant with bank-grade security.
+        </p>
+        <div class="hero-ctas">
+          <a href="#plans" class="btn btn-primary">View Pricing Plans</a>
+          <a href="#" class="btn btn-outline">Schedule Product Demo</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img
+          src="images/payroll-dashboard.png"
+          alt="Eduardo's Bank Payroll Dashboard Preview"
+        />
+      </div>
+    </section>
+
+    <!-- Key Capability Cards -->
+    <section class="features-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2>Everything needed to compensate your workforce</h2>
+          <p>Engineered for high accuracy, integrated tax calculations, and zero pay-cycle delays.</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <div class="feature-icon">⚡</div>
+            <h3>Same-Day Direct Deposits</h3>
+            <p>Direct integration into the Federal Reserve payment rails allows funds to clear seamlessly on pay day.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon">🛡️</div>
+            <h3>Automatic Tax Withholding</h3>
+            <p>Zero tax penalty guarantee. Local, state, and federal taxes are automatically withheld, filed, and remitted.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-icon">📊</div>
+            <h3>Employee Self-Service Portal</h3>
+            <p>Employees can securely view digital paystubs, modify tax elections, and manage their direct deposit allocations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Tiers -->
+    <section class="plans-section" id="plans">
+      <div class="section-header">
+        <h2>Transparent plans for teams of any size</h2>
+        <p>No hidden transfer costs, contract lock-ins, or year-end filing surcharges.</p>
+      </div>
+
+      <div class="plans-grid">
+        <!-- Starter Plan -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3>Starter</h3>
+            <p>Ideal for early-stage companies and contractors.</p>
+            <div class="plan-price">$39 <span>/ month + $5/employee</span></div>
+          </div>
+          <ul class="plan-features">
+            <li>Automated 2-day direct deposit</li>
+            <li>Federal & state tax filings</li>
+            <li>Digital paystubs & W-2 forms</li>
+            <li>Email & chat customer support</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="text-align: center;">Choose Starter</a>
+        </div>
+
+        <!-- Growth Plan -->
+        <div class="plan-card featured">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-header">
+            <h3>Growth</h3>
+            <p>For mid-sized companies seeking workflow automation.</p>
+            <div class="plan-price">$89 <span>/ month + $8/employee</span></div>
+          </div>
+          <ul class="plan-features">
+            <li>Next-day direct deposit guarantee</li>
+            <li>Multi-state tax compliance</li>
+            <li>401(k) & health benefits sync</li>
+            <li>Dedicated account specialist</li>
+            <li>Custom accounting integrations</li>
+          </ul>
+          <a href="#" class="btn btn-primary" style="text-align: center;">Choose Growth</a>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3>Enterprise</h3>
+            <p>Custom infrastructure for multi-entity firms.</p>
+            <div class="plan-price">Custom</div>
+          </div>
+          <ul class="plan-features">
+            <li>Instant direct deposit clearing</li>
+            <li>International contractor payments</li>
+            <li>Custom ERP & HRIS integrations</li>
+            <li>24/7 dedicated support desk</li>
+            <li>Tailored compliance audits</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="text-align: center;">Contact Sales</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <div class="cta-banner">
+      <h2>Switch to Eduardo's Bank Payroll in under 15 minutes</h2>
+      <p>Our dedicated onboarding engineers handle historical wage data migrations free of charge.</p>
+      <a href="#" class="btn btn-primary">Start Your Free 30-Day Trial</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>Eduardo's Bank</h4>
+          <p>Committed to transparent and disciplined financial growth.</p>
+        </div>
+        <div>
+          <p><strong>Member FDIC</strong> | Equal Housing Lender</p>
+        </div>
+      </div>
+      <div class="legal-strip">
+        <p>&copy; 2026 Eduardo's Bank, N.A. All rights reserved. Payroll processing services are governed by federal treasury regulations.</p>
+      </div>
+    </footer>
+  </body>
+</html>

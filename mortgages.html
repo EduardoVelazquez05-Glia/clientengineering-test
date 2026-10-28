@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Glia Integration Script -->
+    <script async src="https://api.beta.glia.com/salemove_integration.js"></script>
+    <title>Home Loans & Mortgages | Eduardo's Bank</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0f172a;
+        --primary-accent: #1e40af;
+        --accent-hover: #1d4ed8;
+        --surface-light: #f8fafc;
+        --border-color: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+        --success: #16a34a;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+
+      /* Top Announcement Bar */
+      .top-bar {
+        background: var(--primary);
+        color: #94a3b8;
+        font-size: 13px;
+        text-align: center;
+        padding: 8px 16px;
+      }
+
+      .top-bar strong {
+        color: #ffffff;
+      }
+
+      /* Navigation Header */
+      header {
+        position: sticky;
+        top: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand img {
+        height: 38px;
+        width: auto;
+      }
+
+      .brand-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      nav {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        color: var(--primary-accent);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: #ffffff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+
+      .btn-outline {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--surface-light);
+      }
+
+      /* Hero Section */
+      .hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 64px 24px;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #eff6ff;
+        color: var(--primary-accent);
+        border: 1px solid #bfdbfe;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .hero-content h1 {
+        font-size: 44px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 16px;
+      }
+
+      .hero-visual {
+        text-align: center;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Benchmark Rates Strip */
+      .rates-strip {
+        background-color: var(--surface-light);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 36px 24px;
+      }
+
+      .rates-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .rates-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+
+      .rates-header h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .rates-header span {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .rates-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .rate-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 24px;
+      }
+
+      .rate-card h3 {
+        font-size: 16px;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+
+      .rate-val {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--primary-accent);
+      }
+
+      .rate-sub {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+
+      /* Mortgage Products Section */
+      .products-section {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 0 24px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .section-header p {
+        color: var(--text-muted);
+        font-size: 16px;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .product-card {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 32px 28px;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .product-card h3 {
+        font-size: 22px;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .product-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      .product-perks {
+        list-style: none;
+        margin-bottom: 32px;
+      }
+
+      .product-perks li {
+        font-size: 14px;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .product-perks li::before {
+        content: "✓";
+        color: var(--success);
+        font-weight: bold;
+      }
+
+      /* Loan Process Steps */
+      .process-section {
+        background-color: var(--surface-light);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 80px 24px;
+      }
+
+      .process-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+
+      .step-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 24px;
+        position: relative;
+      }
+
+      .step-num {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-accent);
+        margin-bottom: 12px;
+      }
+
+      .step-card h4 {
+        font-size: 18px;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .step-card p {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      /* Bottom Call to Action */
+      .cta-banner {
+        max-width: 1200px;
+        margin: 80px auto;
+        padding: 48px;
+        background: var(--primary);
+        border-radius: 16px;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .cta-banner h2 {
+        font-size: 30px;
+        margin-bottom: 12px;
+      }
+
+      .cta-banner p {
+        color: #94a3b8;
+        margin-bottom: 24px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: #94a3b8;
+        padding: 48px 24px 24px;
+        font-size: 13px;
+      }
+
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 32px;
+        margin-bottom: 24px;
+      }
+
+      .footer-brand h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .legal-strip {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-ctas {
+          justify-content: center;
+        }
+        .rates-grid,
+        .products-grid,
+        .process-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+      <span>Rate Lock Guarantee: Lock your mortgage rate for up to 90 days with zero fee. <strong>Learn How</strong></span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="brand">
+          <img src="images/eduardos-bank-logo.png" alt="Eduardo's Bank Logo" />
+          <span class="brand-name">Eduardo's Bank</span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav>
+          <a href="index.html">Homepage</a>
+          <a href="payroll.html">Payroll</a>
+          <a href="creditcards.html">Credit Cards</a>
+          <a href="mortgages.html" class="active">Mortgages</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="#" class="btn btn-outline">Sign In</a>
+          <a href="#" class="btn btn-primary">Open Account</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mortgages Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Residential Lending</span>
+        <h1>Clear rates. Reliable closings. Your next home.</h1>
+        <p>
+          Whether securing your first home loan or refinancing an existing property, 
+          Eduardo's Bank delivers straightforward underwriting, transparent fee structures, 
+          and dedicated mortgage officers.
+        </p>
+        <div class="hero-ctas">
+          <a href="#rates" class="btn btn-primary">Check Today's Rates</a>
+          <a href="#" class="btn btn-outline">Get Pre-Approved</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img
+          src="images/mortgage-hero.png"
+          alt="Eduardo's Bank Mortgage and Home Financing"
+        />
+      </div>
+    </section>
+
+    <!-- Benchmark Rates Strip -->
+    <section class="rates-strip" id="rates">
+      <div class="rates-container">
+        <div class="rates-header">
+          <h2>Current Benchmark Mortgage Rates</h2>
+          <span>Updated daily • Conforming loan assumptions</span>
+        </div>
+        <div class="rates-grid">
+          <div class="rate-card">
+            <h3>30-Year Fixed</h3>
+            <div class="rate-val">6.25%</div>
+            <div class="rate-sub">6.34% APR • Predictable payments</div>
+          </div>
+          <div class="rate-card">
+            <h3>15-Year Fixed</h3>
+            <div class="rate-val">5.65%</div>
+            <div class="rate-sub">5.78% APR • Accelerated equity</div>
+          </div>
+          <div class="rate-card">
+            <h3>5/1 Adjustable (ARM)</h3>
+            <div class="rate-val">5.40%</div>
+            <div class="rate-sub">6.12% APR • Initial 5-year fixed</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mortgage Product Matrix -->
+    <section class="products-section">
+      <div class="section-header">
+        <h2>Tailored financing options for every property</h2>
+        <p>Choose the loan structure best aligned with your timeline and balance sheet.</p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Conventional Fixed Loan -->
+        <div class="product-card">
+          <div>
+            <h3>Conventional Fixed</h3>
+            <p>Our standard mortgage designed for borrowers seeking long-term rate stability.</p>
+            <ul class="product-perks">
+              <li>Terms in 15, 20, or 30 years</li>
+              <li>Down payments as low as 3%</li>
+              <li>No upfront lender origination points</li>
+              <li>Cancellable PMI once equity hits 20%</li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-outline">View Fixed Loans</a>
+        </div>
+
+        <!-- FHA & First-Time Buyers -->
+        <div class="product-card">
+          <div>
+            <h3>First-Time Buyer (FHA)</h3>
+            <p>Government-backed financing designed with flexible qualifying thresholds.</p>
+            <ul class="product-perks">
+              <li>Low 3.5% down payment options</li>
+              <li>Flexible credit score requirements</li>
+              <li>Down payment gift funds permitted</li>
+              <li>Streamlined refinancing pathway</li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-outline">Explore FHA Programs</a>
+        </div>
+
+        <!-- Jumbo Loans -->
+        <div class="product-card">
+          <div>
+            <h3>Jumbo Residential</h3>
+            <p>High-balance capital solutions for premium and luxury home acquisitions.</p>
+            <ul class="product-perks">
+              <li>Financing up to $3,500,000</li>
+              <li>Competitive tiered interest tiers</li>
+              <li>Flexible interest-only options</li>
+              <li>Dedicated private banker advisory</li>
+            </ul>
+          </div>
+          <a href="#" class="btn btn-outline">Inquire on Jumbo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Step Process -->
+    <section class="process-section">
+      <div class="section-header">
+        <h2>Your road to closing day</h2>
+        <p>Transparent milestones from pre-qualification to the handover of keys.</p>
+      </div>
+      <div class="process-grid">
+        <div class="step-card">
+          <div class="step-num">STEP 01</div>
+          <h4>Digital Pre-Approval</h4>
+          <p>Submit income details online and secure a verified pre-approval letter in under 24 hours.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 02</div>
+          <h4>Home Selection & Offer</h4>
+          <p>Shop with confidence backed by Eduardo's Bank certified financing commitment.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 03</div>
+          <h4>Underwriting & Appraisal</h4>
+          <p>Our automated systems verify paperwork and coordinate home appraisal transparently.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 04</div>
+          <h4>Final Settlement</h4>
+          <p>Review closing disclosures electronically and execute final deed signatures with your lender.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <div class="cta-banner">
+      <h2>Ready to discuss your home financing?</h2>
+      <p>Connect with an Eduardo's Bank loan officer or obtain your verified pre-approval letter today.</p>
+      <a href="#" class="btn btn-primary">Start Pre-Approval Online</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>Eduardo's Bank</h4>
+          <p>Committed to transparent and disciplined financial growth.</p>
+        </div>
+        <div>
+          <p><strong>Member FDIC</strong> | ⌂ Equal Housing Lender</p>
+        </div>
+      </div>
+      <div class="legal-strip">
+        <p>&copy; 2026 Eduardo's Bank, N.A. All rights reserved. Loans are subject to credit qualification, verification, and property appraisal.</p>
+      </div>
+    </footer>
+  </body>
+</html>
