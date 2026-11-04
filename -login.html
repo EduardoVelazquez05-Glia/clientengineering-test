@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Glia Integration Script -->
+    <script async src="https://api.beta.glia.com/salemove_integration.js"></script>
+    <script src="js/glia-init.js"></script>
+    <title>Sign In | Eduardo's Bank</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #0f172a;
+        --primary-accent: #1e40af;
+        --accent-hover: #1d4ed8;
+        --surface-light: #f8fafc;
+        --border-color: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-dark);
+        background-color: #ffffff;
+        line-height: 1.6;
+      }
+      /* Top Announcement Bar */
+      .top-bar {
+        background: var(--primary);
+        color: #94a3b8;
+        font-size: 13px;
+        text-align: center;
+        padding: 8px 16px;
+      }
+      .top-bar strong {
+        color: #ffffff;
+      }
+      /* Main Navigation Bar */
+      header {
+        position: sticky;
+        top: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .brand img {
+        height: 38px;
+        width: auto;
+      }
+      .brand-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+      nav {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      nav a:hover,
+      nav a.active {
+        color: var(--primary-accent);
+      }
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+      }
+      .btn {
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+      .btn-primary {
+        background-color: var(--primary-accent);
+        color: #ffffff;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+      }
+      .btn-outline {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-dark);
+      }
+      .btn-outline:hover {
+        background-color: var(--surface-light);
+      }
+      
+      /* Login Specific Styles */
+      .login-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        background-color: var(--surface-light);
+        padding: 40px 24px;
+      }
+      .login-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 40px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      .login-card h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .login-card p {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--primary);
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-accent);
+      }
+      .login-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: #94a3b8;
+        padding: 48px 24px 24px;
+        font-size: 13px;
+      }
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 32px;
+        margin-bottom: 24px;
+      }
+      .footer-brand h4 {
+        color: #ffffff;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      .legal-strip {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: #64748b;
+        font-size: 12px;
+      }
+      
+      @media (max-width: 860px) {
+        .login-card {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+      <span>Security Notice: Eduardo's Bank will never ask for your PIN or password over phone or email. <strong>Learn More</strong></span>
+    </div>
+    
+    <!-- Navigation Header -->
+    <header>
+      <div class="navbar">
+        <a href="index.html" class="brand">
+          <img src="images/eduardos-bank-logo.png" alt="Eduardo's Bank Logo" />
+          <span class="brand-name">Eduardo's Bank</span>
+        </a>
+        <!-- Main Navigation Links -->
+        <nav>
+          <a href="index.html">Homepage</a>
+          <a href="payroll.html">Payroll</a>
+          <a href="creditcards.html">Credit Cards</a>
+          <a href="mortgages.html">Mortgages</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-primary">Sign In</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Login Area -->
+    <section class="login-section">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Sign in to manage your Eduardo's Bank accounts.</p>
+        
+        <form action="#" method="get">
+          <div class="form-group">
+            <label for="username">User ID</label>
+            <input type="text" id="username" name="username" placeholder="Enter your User ID" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <button type="button" class="btn btn-primary login-btn">Secure Sign In</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h4>Eduardo's Bank</h4>
+          <p>Committed to transparent and disciplined financial growth.</p>
+        </div>
+        <div>
+          <p><strong>Member FDIC</strong> | Equal Housing Lender</p>
+        </div>
+      </div>
+      <div class="legal-strip">
+        <p>&copy; 2026 Eduardo's Bank, N.A. All rights reserved. Investments are not deposits and are not FDIC insured.</p>
+      </div>
+    </footer>
+  </body>
+</html>
